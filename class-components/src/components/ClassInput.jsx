@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import Count from './Count.jsx';
 
 class ClassInput extends Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class ClassInput extends Component {
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   handleInputChange(e) {
@@ -25,6 +27,15 @@ class ClassInput extends Component {
     this.setState((state) => ({
       todos: state.todos.concat(state.inputVal),
       inputVal: '',
+    }));
+  }
+
+  handleDelete(e) {
+    e.preventDefault();
+    let filtered = this.state.todos.filter(item => item !== e.target.id)
+    this.setState((state) => ({
+      ...state,
+      todos: filtered,
     }));
   }
 
@@ -44,10 +55,11 @@ class ClassInput extends Component {
           <button type="submit">Submit</button>
         </form>
         <h4>All the tasks!</h4>
+        <h4>Number of tasks: </h4>
         {/* The list of all the To-Do's, displayed */}
         <ul>
           {this.state.todos.map((todo) => (
-            <li key={todo}>{todo}</li>
+            <li key={todo}>{todo}<button id={todo} onClick={this.handleDelete}>x</button></li>
           ))}
         </ul>
       </section>
