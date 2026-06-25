@@ -3,7 +3,7 @@ import { Component } from "react";
 class Count extends Component {
     render() {
         return (
-            <h3>this.Count</h3>
+            <h4>Number of tasks: {this.props.count}</h4>
         )
     }
 }
